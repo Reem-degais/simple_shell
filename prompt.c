@@ -3,11 +3,11 @@
 int prompt(char **av)
 {
         
-	int  i, s, v;
+	int  i, s, v, l;
         char *buf = NULL;
         size_t n =0;
 	ssize_t num_ch;
-	char *argv[] = {NULL, NULL};
+	char *argv[15];
 	pid_t  m;
 
         while(1)
@@ -27,7 +27,13 @@ int prompt(char **av)
                                 buf[i] = 0;
 			i++;
                 }
-		argv[0]= buf;
+		l = 0;
+		argv[l]= strtok(buf, " ");
+		while (argv[l] != NULL)
+		{
+			l++;
+			argv[l] = strtok(NULL, " ");
+		}
 		m = fork();
 		if (m == -1)
 		{
