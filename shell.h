@@ -7,7 +7,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-
-int prompt(char **av);
+int main(int ac, char **av, char **env);
+void _fork(char **av, char **str, char *envi[]);
 
 #endif
