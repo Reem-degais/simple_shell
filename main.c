@@ -10,43 +10,41 @@
 
 int main(int ac, char **av, char **env)
 {
-	int  i;
+	int  i, j;
         char *string = NULL;
-        size_t n =0;
+	size_t n = 0;
 	ssize_t num_ch;
 	char *argv[15];
-
-        if (ac >= 1)
-	while(1)
-        {
-                printf("cisfun$ ");
-                
-		num_ch = getline(&string, &n, stdin);
-		if(num_ch == -1)
+	
+	if (ac >= 1)
+		while (1)
 		{
-                        free(string);
-			exit(0);
+			if (isatty(STDIN_FILENO))
+				printf("cisfun$ ");
+
+			num_ch = getline(&string, &n, stdin);
+			if (num_ch == -1)
+			{
+				free(string);
+				exit(0);
+			}
+			i = 0;
+			while (string[i])
+			{
+				if (string[i] == '\n')
+					string[i] = 0;
+				i++;
+			}
+			j = 0;
+			argv[0]= strtok(string, " ");
+			while (argv[j] != NULL)
+			{
+				j++;
+				argv[j] = strtok(NULL, " ");
+			}
+			_fork(av, argv, env);
 		}
-                i = 0;
-                while(string[i])
-                {
-                        if (string[i] == '\n')
-				string[i] = 0;
-			i++;
-                }
-		argv[0]=string;
-
-		_fork(av,argv ,env);
-		/**l = 0;
-		argv[0]= strtok(buf, " ");
-		while (argv[l] != NULL)
-		{
-			l++;
-			argv[l] = strtok(NULL, " ");
-		
-		}*/
-	}
-	return(0);
+	return (0);
 }
 
 /**
