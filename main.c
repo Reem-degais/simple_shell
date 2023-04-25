@@ -54,6 +54,8 @@ int main(int ac, char **av, char **env)
 				argv[0] = re;*/
 			_fork(av, argv, env);
 		}
+	free(string);
+	free(argv);
 	return (0);
 }
 
