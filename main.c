@@ -10,11 +10,11 @@
 
 int main(int ac, char **av, char **env)
 {
-	int  i, k, j;
+	int  i, k;
 	char *string = NULL;
 	size_t n = 0;
 	ssize_t num_ch;
-	char *argv[15];
+	char **argv;
 
 	if (ac >= 1)
 		while (1)
@@ -36,13 +36,8 @@ int main(int ac, char **av, char **env)
 				i++;
 			}
 
-			j = 0;
-			argv[0]= strtok(string, " ");
-			while (argv[j] != NULL)
-			{
-				j++;
-				argv[j] = strtok(NULL, " ");
-			}
+			argv = _strtok(string, num_ch);
+			
 			if (_strcmp("exit", argv[0]) == 0)
 				break;
 			
@@ -53,6 +48,10 @@ int main(int ac, char **av, char **env)
 			if (re != NULL)
 				argv[0] = re;*/
 			_fork(av, argv, env);
+
+
+			free (argv);
+			free (string);
 		}
 
 	return (0);
