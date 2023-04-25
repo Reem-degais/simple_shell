@@ -10,12 +10,12 @@
 
 int main(int ac, char **av, char **env)
 {
-	int  i, j;
-        char *string = NULL;
+	int  i, k, j;
+	char *string = NULL;
 	size_t n = 0;
 	ssize_t num_ch;
 	char *argv[15];
-	
+
 	if (ac >= 1)
 		while (1)
 		{
@@ -35,6 +35,7 @@ int main(int ac, char **av, char **env)
 					string[i] = 0;
 				i++;
 			}
+
 			j = 0;
 			argv[0]= strtok(string, " ");
 			while (argv[j] != NULL)
@@ -42,6 +43,15 @@ int main(int ac, char **av, char **env)
 				j++;
 				argv[j] = strtok(NULL, " ");
 			}
+			if (_strcmp("exit", argv[0]) == 0)
+				break;
+			
+			if (_strcmp("env", argv[0]) == 0)
+				 for (k = 0; env[k] != NULL; k++)
+					 printf("\n%s", env[k]);
+			/**re = checkf(argv[0]);
+			if (re != NULL)
+				argv[0] = re;*/
 			_fork(av, argv, env);
 		}
 	return (0);
@@ -51,6 +61,7 @@ int main(int ac, char **av, char **env)
  * _fork - creates a new child process.
  * @str: array of string from line command.
  * @envi: environment variable from the parent.
+ * @av : array of argument.
  * Return: nothing.
  */
 void _fork(char **av, char **str, char *envi[])
@@ -75,6 +86,31 @@ void _fork(char **av, char **str, char *envi[])
 	else
 		wait(&status);
 
+}
+
+/**
+ * _strcmp - compare two strings.
+ * @a: first string.
+ * @b: second string.
+ * Return: 0 if thay are same ,1 if they not.
+ */
+int _strcmp(char a[], char b[])
+{
+	int flag = 0, i = 0; 
+
+	while (a[i] != '\0' && b[i] != '\0')
+	{
+		if (a[i] != b[i])
+		{
+			flag = 1;
+			break;
+		}
+		i++;
+	}
+	if (flag == 0)
+		return (0);
+	else
+		return (1);
 }
 
 
