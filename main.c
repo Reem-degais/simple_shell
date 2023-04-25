@@ -50,8 +50,7 @@ int main(int ac, char **av, char **env)
 			_fork(av, argv, env);
 
 
-			free (argv);
-			free (string);
+	
 		}
 
 	return (0);
